@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "BayutLocalPackages",
+    name: "LocalPackages-iOS",
     defaultLocalization: "en",
     platforms: [.iOS(.v12)],
     products: [

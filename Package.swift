@@ -21,6 +21,10 @@ let package = Package(
         .library(
             name: "InstantSearchClient",
             targets: ["InstantSearchClient"]
+        ),
+        .library(
+            name: "GoogleAnalytics",
+            targets: ["GoogleAnalytics"]
         )
     ],
     dependencies: [
@@ -137,5 +141,12 @@ let package = Package(
             name: "InstantSearchClient",
             path: "InstantSearchClient"
         ),
+        
+        // MARK: - Analytics
+        
+        .binaryTarget(
+            name: "GoogleAnalytics",
+            path: "GoogleAnalytics.xcframework"
+        )
     ]
 )

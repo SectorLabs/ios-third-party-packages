@@ -245,9 +245,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)backwardButtonImage
 {
     if (!_backwardButtonImage) {
-        NSString *path = [[NSBundle bundleForClass:[DZNWebViewController class]]
-                          pathForResource:@"dzn_icn_toolbar_backward" ofType:@"png"];
-        _backwardButtonImage = [UIImage imageWithContentsOfFile:path];
+        _backwardButtonImage = DZNLoadImage(@"dzn_icn_toolbar_backward");
     }
     return _backwardButtonImage;
 }
@@ -255,9 +253,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)forwardButtonImage
 {
     if (!_forwardButtonImage) {
-        NSString *path = [[NSBundle bundleForClass:[DZNWebViewController class]]
-                          pathForResource:@"dzn_icn_toolbar_forward" ofType:@"png"];
-        _forwardButtonImage = [UIImage imageWithContentsOfFile:path];
+        _forwardButtonImage = DZNLoadImage(@"dzn_icn_toolbar_forward");
     }
     return _forwardButtonImage;
 }
@@ -265,9 +261,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)reloadButtonImage
 {
     if (!_reloadButtonImage) {
-        NSString *path = [[NSBundle bundleForClass:[DZNWebViewController class]]
-                          pathForResource:@"dzn_icn_toolbar_reload" ofType:@"png"];
-        _reloadButtonImage = [UIImage imageWithContentsOfFile:path];
+        _reloadButtonImage = DZNLoadImage(@"dzn_icn_toolbar_reload");
     }
     return _reloadButtonImage;
 }
@@ -275,9 +269,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)stopButtonImage
 {
     if (!_stopButtonImage) {
-        NSString *path = [[NSBundle bundleForClass:[DZNWebViewController class]]
-                          pathForResource:@"dzn_icn_toolbar_reload" ofType:@"png"];
-        _stopButtonImage = [UIImage imageWithContentsOfFile:path];
+        _stopButtonImage = DZNLoadImage(@"dzn_icn_toolbar_reload");
     }
     return _stopButtonImage;
 }
@@ -285,9 +277,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)actionButtonImage
 {
     if (!_actionButtonImage) {
-        NSString *path = [[NSBundle bundleForClass:[DZNWebViewController class]]
-                          pathForResource:@"dzn_icn_toolbar_reload" ofType:@"png"];
-        _actionButtonImage = [UIImage imageWithContentsOfFile:path];
+        _actionButtonImage = DZNLoadImage(@"dzn_icn_toolbar_reload");
     }
     return _actionButtonImage;
 }
@@ -317,6 +307,33 @@ static char DZNWebViewControllerKVOContext = 0;
     }
     
     return activities;
+}
+
+UIImage *DZNLoadImage(NSString *name) {
+    if (!name) return nil;
+    
+    // Remove file extension if included
+    NSString *imageName = [name stringByDeletingPathExtension];
+    NSString *extension = [name pathExtension];
+    if (extension.length == 0) {
+        extension = @"png"; // default
+    }
+    
+    // Find the image path in the bundle of DZNWebViewController
+    NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"DZNWebViewController")];
+    NSString *path = [bundle pathForResource:imageName ofType:extension];
+    
+    if (!path) {
+        NSLog(@"⚠️ DZNLoadImage: Image '%@' not found in bundle.", name);
+        return nil;
+    }
+    
+    UIImage *image = [UIImage imageWithContentsOfFile:path];
+    if (!image) {
+        NSLog(@"⚠️ DZNLoadImage: Failed to load image at path: %@", path);
+    }
+    
+    return image;
 }
 
 - (NSArray *)excludedActivityTypesForItem:(id)item

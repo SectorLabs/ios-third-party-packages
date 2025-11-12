@@ -15,17 +15,10 @@ let package = Package(
         .library(name: "TTTAttributedLabel", targets: ["TTTAttributedLabel"]),
         .library(name: "SlideMenuControllerSwift", targets: ["SlideMenuControllerSwift"]),
         .library(name: "DZNWebViewController", targets: ["DZNWebViewController"]),
-        .library(
-            name: "FlagPhoneNumber",
-            targets: ["FlagPhoneNumber", "libPhoneNumber"]),
-        .library(
-            name: "InstantSearchClient",
-            targets: ["InstantSearchClient"]
-        ),
-        .library(
-            name: "GoogleAnalytics",
-            targets: ["GoogleAnalytics"]
-        )
+        .library(name: "FlagPhoneNumber", targets: ["FlagPhoneNumber", "libPhoneNumber"]),
+        .library(name: "InstantSearchClient", targets: ["InstantSearchClient"]),
+        .library(name: "GoogleAnalytics", targets: ["GoogleAnalytics"]),
+        .library(name: "SwiftUIFlow", targets: ["SwiftUIFlow"])
     ],
     dependencies: [
         // External dependencies used by multiple targets
@@ -109,6 +102,10 @@ let package = Package(
                 .process("Resources/FlagKit.xcassets")
             ],
             publicHeadersPath: "."
+        ),
+        .target(
+            name: "SwiftUIFlow",
+            path: "SwiftUIFlow"
         ),
         
         // MARK: - ObjC-based Targets

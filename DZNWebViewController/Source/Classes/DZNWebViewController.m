@@ -325,7 +325,6 @@ UIImage *DZNLoadImage(NSString *name) {
     
     if (!path) {
         NSLog(@"⚠️ DZNLoadImage: Image '%@' not found in bundle.", name);
-        return nil;
     }
     
     UIImage *image = [UIImage imageWithContentsOfFile:path];

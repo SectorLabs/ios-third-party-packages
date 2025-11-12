@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "LocalPackages-iOS",
     defaultLocalization: "en",
-    platforms: [.iOS(.v12)],
+    platforms: [.iOS(.v14)],
     products: [
         .library(name: "MarqueeLabel", targets: ["MarqueeLabel"]),
         .library(name: "ObjectMapper", targets: ["ObjectMapper"]),

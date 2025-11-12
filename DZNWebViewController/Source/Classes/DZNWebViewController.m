@@ -88,6 +88,27 @@ static char DZNWebViewControllerKVOContext = 0;
     self.completedInitialLoad = NO;
 }
 
+- (void)loadMyAsset {
+    // 1. Get the bundle using the preprocessor macro
+    NSBundle *bundle = SWIFTPM_MODULE_BUNDLE;
+
+    // 2. Access the file (e.g., a JSON file named "data.json")
+    NSString *filePath = [bundle pathForResource:@"data" ofType:@"json"];
+
+    if (filePath) {
+        NSError *error = nil;
+        NSString *fileContents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+
+        if (fileContents) {
+            NSLog(@"File loaded successfully: %@", fileContents);
+            // Process your data here
+        } else {
+            NSLog(@"Error reading file: %@", error.localizedDescription);
+        }
+    } else {
+        NSLog(@"File not found in bundle.");
+    }
+}
 
 #pragma mark - View lifecycle
 
@@ -246,7 +267,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)backwardButtonImage
 {
     if (!_backwardButtonImage) {
-        _backwardButtonImage = [UIImage imageNamed:@"dzn_icn_toolbar_backward" inBundle:[NSBundle bundleForClass:[DZNWebViewController class]] compatibleWithTraitCollection:nil];
+        _backwardButtonImage = [UIImage imageNamed:@"dzn_icn_toolbar_backward" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
     }
     return _backwardButtonImage;
 }
@@ -254,7 +275,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)forwardButtonImage
 {
     if (!_forwardButtonImage) {
-        _forwardButtonImage = [UIImage imageNamed:@"dzn_icn_toolbar_forward" inBundle:[NSBundle bundleForClass:[DZNWebViewController class]] compatibleWithTraitCollection:nil];
+        _forwardButtonImage = [UIImage imageNamed:@"dzn_icn_toolbar_forward" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
     }
     return _forwardButtonImage;
 }
@@ -262,7 +283,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)reloadButtonImage
 {
     if (!_reloadButtonImage) {
-        _reloadButtonImage = [UIImage imageNamed:@"dzn_icn_toolbar_reload" inBundle:[NSBundle bundleForClass:[DZNWebViewController class]] compatibleWithTraitCollection:nil];
+        _reloadButtonImage = [UIImage imageNamed:@"dzn_icn_toolbar_reload" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
     }
     return _reloadButtonImage;
 }
@@ -270,7 +291,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)stopButtonImage
 {
     if (!_stopButtonImage) {
-        _stopButtonImage = [UIImage imageNamed:@"dzn_icn_toolbar_stop" inBundle:[NSBundle bundleForClass:[DZNWebViewController class]] compatibleWithTraitCollection:nil];
+        _stopButtonImage = [UIImage imageNamed:@"dzn_icn_toolbar_stop" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
     }
     return _stopButtonImage;
 }
@@ -278,7 +299,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)actionButtonImage
 {
     if (!_actionButtonImage) {
-        _actionButtonImage = [UIImage imageNamed:@"dzn_icn_toolbar_action" inBundle:[NSBundle bundleForClass:[DZNWebViewController class]] compatibleWithTraitCollection:nil];
+        _actionButtonImage = [UIImage imageNamed:@"dzn_icn_toolbar_action" inBundle:SWIFTPM_MODULE_BUNDLE compatibleWithTraitCollection:nil];
     }
     return _actionButtonImage;
 }

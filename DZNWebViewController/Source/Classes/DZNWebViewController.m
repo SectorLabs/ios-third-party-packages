@@ -311,25 +311,13 @@ static char DZNWebViewControllerKVOContext = 0;
 
 UIImage *DZNLoadImage(NSString *name) {
     if (!name) return nil;
-    
-    // Remove file extension if included
-    NSString *imageName = [name stringByDeletingPathExtension];
-    NSString *extension = [name pathExtension];
-    if (extension.length == 0) {
-        extension = @"png"; // default
-    }
-    
-    // Find the image path in the bundle of DZNWebViewController
+        
+    // Get the bundle containing the class
     NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"DZNWebViewController")];
-    NSString *path = [bundle pathForResource:imageName ofType:extension];
+    UIImage *image = [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
     
-    if (!path) {
-        NSLog(@"⚠️ DZNLoadImage: Image '%@' not found in bundle.", name);
-    }
-    
-    UIImage *image = [UIImage imageWithContentsOfFile:path];
     if (!image) {
-        NSLog(@"⚠️ DZNLoadImage: Failed to load image at path: %@", path);
+        NSLog(@"⚠️ DZNLoadImage: Image '%@' not found in bundle.", name);
     }
     
     return image;

@@ -311,15 +311,7 @@ static char DZNWebViewControllerKVOContext = 0;
 
 UIImage *DZNLoadImage(NSString *name) {
     if (!name) return nil;
-        
-    // Get the bundle containing the class
-    NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"DZNWebViewController")];
-    UIImage *image = [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
-    
-    if (!image) {
-        NSLog(@"⚠️ DZNLoadImage: Image '%@' not found in bundle.", name);
-    }
-    
+    UIImage *image = [UIImage imageNamed:name];
     return image;
 }
 

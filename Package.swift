@@ -126,7 +126,7 @@ let package = Package(
             name: "DZNWebViewController",
             path: "DZNWebViewController/Source",
             resources: [
-                .process("Source/Resources/DZNAssets.xcassets"),
+                .process("DZNWebViewController/Source/Resources/DZNAssets.xcassets"),
             ],
             publicHeadersPath: "."
         ),

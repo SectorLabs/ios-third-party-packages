@@ -269,7 +269,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)stopButtonImage
 {
     if (!_stopButtonImage) {
-        _stopButtonImage = DZNLoadImage(@"dzn_icn_toolbar_reload");
+        _stopButtonImage = DZNLoadImage(@"dzn_icn_toolbar_stop");
     }
     return _stopButtonImage;
 }
@@ -277,7 +277,7 @@ static char DZNWebViewControllerKVOContext = 0;
 - (UIImage *)actionButtonImage
 {
     if (!_actionButtonImage) {
-        _actionButtonImage = DZNLoadImage(@"dzn_icn_toolbar_reload");
+        _actionButtonImage = DZNLoadImage(@"dzn_icn_toolbar_action");
     }
     return _actionButtonImage;
 }

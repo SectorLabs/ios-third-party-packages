@@ -388,7 +388,16 @@ open class ImageSlideshow: UIView {
         layoutPageControl()
         setTimerIfNeeded()
     }
-
+    
+    open func updateImagesLayout(_ update: (UIImageView, UIImage) -> Void) {
+        for item in slideshowItems {
+            if let image = item.imageView.image {
+                update(item.imageView, image)
+            }
+        }
+        layoutScrollView()
+    }
+    
     // MARK: paging methods
 
     /**

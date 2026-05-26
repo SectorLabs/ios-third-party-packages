@@ -159,20 +159,25 @@ internal class Request: AsyncOperationWithCompletion {
         assert(data != nil)
         assert(response != nil)
 
+        // Extract HTTP response
+        let httpResponse = response! as! HTTPURLResponse
+
         // Parse JSON response.
         // NOTE: We parse JSON even in case of failure to get the error message.
         do {
-          json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-          if json == nil {
-            finalError = InvalidJSONError(description: "Server response not a JSON object")
+          if let responseData = data, !responseData.isEmpty { // Safely unwrap and check for empty data
+            json = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any]
+            if json == nil {
+              finalError = InvalidJSONError(description: "Server response not a JSON object")
+            }
           }
         } catch let jsonError {
           finalError = jsonError
         }
 
         // Handle HTTP status code.
-        let httpResponse = response! as! HTTPURLResponse
-        if finalError == nil && !StatusCode.isSuccess(httpResponse.statusCode) {
+        // Always prioritize the HTTP status code error over a JSON parsing error
+        if !StatusCode.isSuccess(httpResponse.statusCode) {
           // Get the error message from JSON if available.
           let errorMessage = json?["message"] as? String
           finalError = HTTPError(statusCode: httpResponse.statusCode, message: errorMessage)

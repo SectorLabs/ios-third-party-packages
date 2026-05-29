@@ -52,15 +52,31 @@ public struct InvalidJSONError: CustomNSError {
 /// A non-OK HTTP status code.
 ///
 public struct HTTPError: CustomNSError {
+  public static let headersUserInfoKey = "InstantSearchClient.HTTPError.headers"
+  public static let urlUserInfoKey = "InstantSearchClient.HTTPError.url"
+
   /// The HTTP status code returned by the server.
   public let statusCode: Int
 
   /// Optional message returned by the server.
   public let message: String?
+  
+  /// Raw HTTP headers returned by the server.
+  public let headers: [String: String]
+  
+  /// Final response URL.
+  public let url: URL?
 
-  public init(statusCode: Int, message: String? = nil) {
+  public init(
+    statusCode: Int,
+    message: String? = nil,
+    headers: [String: String] = [:],
+    url: URL? = nil
+  ) {
     self.statusCode = statusCode
     self.message = message
+    self.headers = headers
+    self.url = url
   }
 
   // MARK: CustomNSError protocol
@@ -75,6 +91,13 @@ public struct HTTPError: CustomNSError {
     var userInfo = [String: Any]()
     if let message = message {
       userInfo[NSLocalizedDescriptionKey] = message
+    }
+    if !headers.isEmpty {
+      userInfo[Self.headersUserInfoKey] = headers
+    }
+    if let url = url {
+      userInfo[Self.urlUserInfoKey] = url
+      userInfo[NSURLErrorKey] = url
     }
     return userInfo
   }

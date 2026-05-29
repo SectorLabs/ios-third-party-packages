@@ -255,6 +255,9 @@ internal struct HostStatus {
     fixedHTTPHeaders["X-Algolia-Application-Id"] = _appID
     let configuration = URLSessionConfiguration.default
     configuration.httpAdditionalHeaders = fixedHTTPHeaders
+    configuration.httpCookieAcceptPolicy = .always
+    configuration.httpShouldSetCookies = true
+    configuration.httpCookieStorage = HTTPCookieStorage.shared
     session = Foundation.URLSession(configuration: configuration)
 
     onlineRequestQueue = OperationQueue()

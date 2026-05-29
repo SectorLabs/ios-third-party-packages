@@ -180,7 +180,16 @@ internal class Request: AsyncOperationWithCompletion {
         if !StatusCode.isSuccess(httpResponse.statusCode) {
           // Get the error message from JSON if available.
           let errorMessage = json?["message"] as? String
-          finalError = HTTPError(statusCode: httpResponse.statusCode, message: errorMessage)
+          let responseHeaders = httpResponse.allHeaderFields.reduce(into: [String: String]()) { partialResult, header in
+            guard let key = header.key as? String else { return }
+            partialResult[key] = String(describing: header.value)
+          }
+          finalError = HTTPError(
+            statusCode: httpResponse.statusCode,
+            message: errorMessage,
+            headers: responseHeaders,
+            url: httpResponse.url
+          )
         }
       }
       assert(json != nil || finalError != nil)

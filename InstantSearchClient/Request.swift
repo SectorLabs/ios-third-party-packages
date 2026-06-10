@@ -77,9 +77,10 @@ internal class Request: AsyncOperationWithCompletion {
     assert(firstHostIndex < hosts.count)
     self.path = path
     self.urlParameters = urlParameters
-    // IMPORTANT: Enforce the `User-Agent` header on all requests.
     var patchedHeaders = headers ?? [:]
-    patchedHeaders["User-Agent"] = AbstractClient.userAgentHeader
+    if patchedHeaders["User-Agent"] == nil {
+      patchedHeaders["User-Agent"] = AbstractClient.userAgentHeader
+    }
     self.headers = patchedHeaders
     self.jsonBody = jsonBody
     assert(jsonBody == nil || (method == .POST || method == .PUT))

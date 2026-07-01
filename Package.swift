@@ -14,7 +14,6 @@ let package = Package(
         .library(name: "ReadMoreTextView", targets: ["ReadMoreTextView"]),
         .library(name: "TTTAttributedLabel", targets: ["TTTAttributedLabel"]),
         .library(name: "SlideMenuControllerSwift", targets: ["SlideMenuControllerSwift"]),
-        .library(name: "DZNWebViewController", targets: ["DZNWebViewController"]),
         .library(name: "FlagPhoneNumber", targets: ["FlagPhoneNumber", "libPhoneNumber"]),
         .library(name: "InstantSearchClient", targets: ["InstantSearchClient"]),
         .library(name: "GoogleAnalytics", targets: ["GoogleAnalytics"]),
@@ -22,8 +21,8 @@ let package = Package(
     ],
     dependencies: [
         // External dependencies used by multiple targets
-        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "5.8.0"),
-        .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "3.6.0"),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.10.0"),
+        .package(url: "https://github.com/Alamofire/AlamofireImage.git", from: "4.3.0"),
         .package(url: "https://github.com/SDWebImage/SDWebImage.git", from: "5.1.0")
     ],
     targets: [
@@ -121,14 +120,6 @@ let package = Package(
         .target(
             name: "SlideMenuControllerSwift",
             path: "SlideMenuController/Source"
-        ),
-        .target(
-            name: "DZNWebViewController",
-            path: "DZNWebViewController/Source",
-            resources: [
-                .process("DZNWebViewController/Source/Resources/DZNAssets.xcassets"),
-            ],
-            publicHeadersPath: "."
         ),
 
         // MARK: - Networking & Mapping

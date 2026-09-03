@@ -187,13 +187,10 @@ public class ReadMoreTextView: UITextView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
-        //the trim point depends on the line width, so it has to be recomputed when that changes
-        if _needsUpdateTrim || bounds.size.width != _lastTrimmedWidth,
-           let originalAttributedText = _originalAttributedText {
+        if _needsUpdateTrim {
             //reset text to force update trim
-            attributedText = originalAttributedText
+            attributedText = _originalAttributedText
             _needsUpdateTrim = false
-            _lastTrimmedWidth = bounds.size.width
         }
         needsTrim() ? showLessText() : showMoreText()
     }
@@ -230,7 +227,6 @@ public class ReadMoreTextView: UITextView {
     //MARK: Private methods
     
     private var _needsUpdateTrim = false
-    private var _lastTrimmedWidth: CGFloat = 0
     private var _originalMaximumNumberOfLines: Int = 0
     private var _originalAttributedText: NSAttributedString!
     private var _originalTextLength: Int {
